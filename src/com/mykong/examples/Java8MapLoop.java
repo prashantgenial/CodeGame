@@ -38,6 +38,10 @@ public class Java8MapLoop {
 			}
 		});
 		
+		System.out.println("Java 8 Streams:");
+		items.entrySet().stream()
+	      .forEach(e -> System.out.println("Item : "+ e.getKey() + " Count : "+ e.getValue()));
+		
 		List<String> items1 = new ArrayList<>();
 		items1.add("A");
 		items1.add("B");
