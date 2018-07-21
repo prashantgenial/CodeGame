@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /*
  * Java 8 loops for Map
@@ -53,5 +54,6 @@ public class Java8MapLoop {
 		items1.stream()
 			.filter(s->s.contains("B"))
 			.forEach(System.out::println);
-	}
+
+		}
 }
