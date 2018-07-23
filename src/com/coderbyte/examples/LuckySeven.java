@@ -26,9 +26,11 @@ public class LuckySeven {
 		for (int i = 0; i< arr.length; i++){
 		    if ((i < arr.length -2) && (arr[i]+arr[i+1]+arr[i+2]) == 7) return true;
 		}
-		
+	
+//		Arrays.stream(arr).reduce(Integer::sum);
 		 // if loop is finished and no elements summed to 7
 		  return false;
 	}
+	
 	
 }
