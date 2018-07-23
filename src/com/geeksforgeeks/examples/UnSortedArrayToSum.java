@@ -30,6 +30,8 @@ public class UnSortedArrayToSum {
 		Integer x = 9;
         
         findPairs(arr1,arr2,x);
+        System.out.println("---------Using Java Stream----------------");
+        findPairs1(arr1,arr2,x);
 
 	}
 
@@ -43,8 +45,6 @@ public class UnSortedArrayToSum {
         for (int i = 0; i < arr1.length; i ++)
             s.put(arr1[i], 0);
         
-//        Arrays.stream(arr1).map(s1 -> s1).collect(Collectors.toMap(s1,0));
-        
         // Subtract sum from second array elements one
         // by one and check it's present in array first
         // or not
@@ -53,8 +53,12 @@ public class UnSortedArrayToSum {
                 System.out.println(x - arr2[j] + " " + arr2[j]);             
     }
 
-	private static Function s(Map<Integer, Integer> s, int i) {
-		// TODO Auto-generated method stub
-		return null;
+    public static void findPairs1(Integer arr1[], Integer arr2[], Integer x) {
+		//convert first Array as Map of which key is Array values
+        Map<Integer, Integer> s = Arrays.stream(arr1).collect(Collectors.toMap(Function.identity(), ss -> 0));
+        
+        //now search the sum - value == key of first array then print the values.
+        //Arrays.stream(arr2).filter( s1 -> s.containsKey(x - s1)).forEach(s1 -> System.out.println(x - s1 + " " + s1));
+        Arrays.stream(arr2).filter( s1 -> s.containsKey(x - s1)).map(s2 -> (x - s2 + " " + s2)).forEach(System.out :: println);
 	}
 }
