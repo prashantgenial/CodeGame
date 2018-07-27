@@ -31,6 +31,6 @@ public class DivisorsOfThree {
 	}
 	
 	public static void test_divisior1(int low,int high) {
-		IntStream.range(low,high).filter(i -> i%3 == 0).forEach(System.out::println);
+		IntStream.range(low,high).filter(i -> i%3 == 0).forEach(System.out::println);		
 	}
 }
