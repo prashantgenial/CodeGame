@@ -56,10 +56,10 @@ public final class ParenthesisChecker {
 	    } 
 
 	    public static void main(String[] args) {
-	    	/*assertTrue(isBalanced("{}([])"));
-	    	assertTrue(isBalanced("([}])"));
-	    	assertTrue(isBalanced("([])"));
-	    	assertTrue(isBalanced("()[]{}[][]"));*/
+	    	/*Assert.assertEquals(true, isBalanced("{}([])"));
+	        assertEquals(false,isBalanced("([}])"));
+	        assertEquals(true, isBalanced("([])"));
+	        assertEquals(true, isBalanced("()[]{}[][]"));*/
 	    	
 	    	System.out.println(isBalanced("{}([])"));
 	    	System.out.println(isBalanced("([}])"));
