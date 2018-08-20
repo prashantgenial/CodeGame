@@ -7,6 +7,10 @@ public class RemoveDuplicate {
 		Integer[] arr = {1,2,3,1,3,1,3,8,3,1,5,2};
 		Arrays.stream(arr).distinct().forEach(System.out::println);		
 		
+		String n = "Prashant Gupta";
+		char[] charArray = n.toCharArray();
+		
+		
 		printRandom();
 	}
 
