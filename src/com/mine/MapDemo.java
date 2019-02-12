@@ -1,16 +1,44 @@
 package com.mine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 
+ * @author MHQG9765
+ * Map<String, String> lruCache = new LinkedHashMap<>(16, 0.75f, false);
+ * Inside lruCacheTest in this case it will works similar to HashMap + maintain the insertion order....
+{a=A, b=B, c=C}
+{a=A, b=B, c=C}
+{a=A, b=B, c=C}
+{a=A, b=B, c=C, d=D}
+{a=A, b=B, c=C, d=D, e=E}
+ * 
+ * Map<String, String> lruCache = new LinkedHashMap<>(16, 0.75f, true);
+ * In this case work as LRU Cache with unlimited entries so whenever an entry accessed it pushed at the end of the Map. Worked as Most recent entry
+ *Inside lruCacheTest ...
+{a=A, b=B, c=C}
+{b=B, c=C, a=A}
+{c=C, a=A, b=B}
+{c=C, a=A, b=B, d=D}
+{c=C, a=A, b=B, d=D, e=E}
+
+Map<String, String> lruCache = new LRUCache<>(16, 0.75f, true);
+it's a limited size LRU cache
+ *Inside lruCacheTest ...
+{a=A, b=B, c=C}
+{b=B, c=C, a=A}
+{c=C, a=A, b=B}
+{a=A, b=B, d=D}
+{b=B, d=D, e=E}
+ */
+
 public class MapDemo {
 
-	public static void main(String[] args) {
-		hashMapDemo();
-
-	}
-	
 	private static void hashMapDemo() {
 		System.out.println("\n\nInside hashMapDemo ...");
 		Map<String, Integer> map1 = new HashMap<>();
@@ -40,7 +68,7 @@ public class MapDemo {
 		
 		names.remove("Anita");
 		System.out.println(map1);
-		
+				
 		Map<String, Map<String, Object>> userProfile = new HashMap<>();
 		
 		Map<String, Object> profile = new HashMap<>();
@@ -63,6 +91,102 @@ public class MapDemo {
 		int age = (Integer) profile1.get("age");
 		System.out.println("Age: " + age);
 		// Exercise: Try using second constructor, putAll, clear, values, and other methods
+	}
+	
+	private static void immutableKeysDemo() {
+		System.out.println("\n\nInside immutableKeysDemo ...");
+		List<Integer> list = new ArrayList<>();
+		list.add(1);
+		
+		Map<List<Integer>, Integer> map = new HashMap<>();
+		map.put(list, 1);
+		
+		list.add(2);
+		System.out.println(map.get(list));
+		
+		Student s = new Student(1, null);
+		Map<Student, Integer> map2 = new HashMap<>();
+		map2.put(s, 1);
+		
+		s.setName("John");
+		System.out.println(map2.get(s));
+	}
+	
+	 /*
+	   * Demo: 
+	   * 	1. See output with and without commenting get() calls
+	   *    2. See output when accessOrder=false with get() calls. get calls do not have any influence
+	   *    3. Finally, change object type from LRUCache to LinkedHashMap and see output. 
+	   *       All 5 mappings will be printed as removeEldestEntry would return false by default
+	   */
+	  private static void lruCacheTest() {
+		  System.out.println("\n\nInside lruCacheTest ...");
+		  //Map<String, String> lruCache = new LRUCache<>(16, 0.75f, true);
+		  Map<String, String> lruCache = new LinkedHashMap<>(16, 0.75f, false);
+		  lruCache.put("a", "A");
+		  lruCache.put("b", "B");
+		  lruCache.put("c", "C");
+		  System.out.println(lruCache);
+		  
+		  lruCache.get("a"); // multiple gets to "a" will not make a difference
+		  lruCache.get("a");
+		  lruCache.get("a");
+		  System.out.println(lruCache);
+		  lruCache.get("b");
+		  System.out.println(lruCache);
+		  		  
+		  lruCache.put("d", "D");
+		  System.out.println(lruCache);
+		  lruCache.put("e", "E");
+		  System.out.println(lruCache);		  
+	  }
+		
+	public static void main(String[] args) {
+		// hashMapDemo();	
+		// immutableKeysDemo();		
+		lruCacheTest();				
+	}
+	
+}
+
+class LRUCache<K,V> extends LinkedHashMap<K,V> {
+	//private static final long serialVersionUID = 6464155743798737431L;
+	private static final int MAX_ENTRIES = 3;
+	  
+	public LRUCache(int initialCapacity,
+	             float loadFactor,
+	             boolean accessOrder) {
+		 super(initialCapacity, loadFactor, accessOrder);
+	}
+	  
+	// Invoked by put and putAll after inserting a new entry into the map
+	public boolean removeEldestEntry(Map.Entry eldest) {
+	     return size() > MAX_ENTRIES;
+		 // return false; // same as normal linked hash map
+	}		  
+}
+
+class Student {	
+	private int id;
+	private String name;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public Student(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
 	}
 
 }

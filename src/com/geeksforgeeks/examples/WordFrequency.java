@@ -10,6 +10,7 @@ import java.util.Map;
 /**
  * How to get frequency of each word in a paragraph of strings?
  * @author MHQG9765
+ * https://javafaq.wordpress.com/tag/linkedhashmap/
  *
  */
 public class WordFrequency {
