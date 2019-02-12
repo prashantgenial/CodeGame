@@ -16,6 +16,8 @@ public class ConvertArrayListToArray {
 
 		/* ArrayList to Array Conversion */
 		String array[] = new String[arrlist.size()];
+		/*ArrayList to Array Conversion */
+		//String citinames[]=cities.toArray(new String[cities.size()]);
 		for (int j = 0; j < arrlist.size(); j++) {
 			array[j] = arrlist.get(j);
 		}
