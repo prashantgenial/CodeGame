@@ -33,8 +33,9 @@ class Benderthemoneymachine {
         nbRooms = in.nextInt();
         in.nextLine();
         rooms = new Room[nbRooms];
-        for (int i = 0; i < nbRooms; i++)
-            rooms[i] = new Room(in.nextLine());
+        //uncomment below lines
+      /*  for (int i = 0; i < nbRooms; i++)
+            rooms[i] = new Room(in.nextLine());*/
  
         /* The array money contains the amount of money pocketted on the
            "best" path found yet (index nbRooms correspond to a virtual exit room)
