@@ -79,6 +79,30 @@ public class ArraysDemo {
 		Object[] objArray = new int[][][] { { {1, 2, 3}}};
 		int[][] ia = (int[][])objArray[0];
 		System.out.println(ia[0][2]);
+		
+		ArrayList<Integer> list1 = new ArrayList<>();
+		ArrayList<Integer> list2 = new ArrayList<>();
+		list1.add(1);
+		list1.add(2);
+		list1.add(3);
+		list1.add(4);
+		list1.add(5);
+		
+		list2.add(1);
+		list2.add(9);
+		list2.add(3);
+		list2.add(7);
+		list2.add(5);
+		
+		ArrayList<Integer> uniquelist = new ArrayList<>(list1);
+		uniquelist.removeAll(list2);	//removes common
+		System.out.println("Printing unique items:");
+		uniquelist.forEach(System.out::println);
+		
+		ArrayList<Integer> duplist = new ArrayList<>(list1);
+		duplist.retainAll(list2);
+		System.out.println("Printing Duplicate items:");
+		duplist.forEach(System.out::println);
 	}
 	
 	
