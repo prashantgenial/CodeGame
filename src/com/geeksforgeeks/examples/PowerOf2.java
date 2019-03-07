@@ -2,7 +2,7 @@ package com.geeksforgeeks.examples;
 
 public class PowerOf2 {
 		 public static void main(String[] args) {
-		  System.out.println(powerOf2(6));
+		  System.out.println(powerOf2(16));
 		 }
 		 
 		 private static boolean powerOf2(int number){
