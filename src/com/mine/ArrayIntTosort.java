@@ -3,6 +3,7 @@ package com.mine;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -179,15 +180,25 @@ public class ArrayIntTosort {
 	   }
 	   
 	   //2. sort map by value
-	   LinkedHashMap<Integer, String> items = map.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
+	   /*LinkedHashMap<Integer, String> items = map.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
                LinkedHashMap::new));
 	   
 	      
 	   //3 get keys
-	   Set<Integer> keys = items.keySet();
+	   Set<Integer> keys = items.keySet();*/
+	   
+	   List<Integer> keys = map.entrySet().stream()
+		       .sorted(Comparator.comparing(Map.Entry::getValue))
+		       .map(Map.Entry::getKey)
+		       .collect(Collectors.toList());
 	   
 	   //4. get array from set
 	   Integer[] array = keys.toArray(new Integer[keys.size()]);
+	   
+	   List<Integer> collect = map.entrySet().stream()
+       .sorted(Comparator.comparing(Map.Entry::getValue))
+       .map(Map.Entry::getKey)
+       .collect(Collectors.toList());
 
 	   for(Integer arr: array) {
 		   System.out.println(arr);
