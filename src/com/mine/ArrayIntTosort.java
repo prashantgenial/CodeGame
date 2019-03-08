@@ -187,19 +187,15 @@ public class ArrayIntTosort {
 	   //3 get keys
 	   Set<Integer> keys = items.keySet();*/
 	   
+	   //2. Sort Map and get keys 
 	   List<Integer> keys = map.entrySet().stream()
 		       .sorted(Comparator.comparing(Map.Entry::getValue))
 		       .map(Map.Entry::getKey)
 		       .collect(Collectors.toList());
 	   
-	   //4. get array from set
+	   //3. get array from set
 	   Integer[] array = keys.toArray(new Integer[keys.size()]);
-	   
-	   List<Integer> collect = map.entrySet().stream()
-       .sorted(Comparator.comparing(Map.Entry::getValue))
-       .map(Map.Entry::getKey)
-       .collect(Collectors.toList());
-
+	  
 	   for(Integer arr: array) {
 		   System.out.println(arr);
 	   }
