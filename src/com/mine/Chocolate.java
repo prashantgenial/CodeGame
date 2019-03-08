@@ -42,6 +42,31 @@ public class Chocolate {
         return choc + countRec(choc, wrap); 
     } 
     
+ // Returns maximum number of chocolates  
+    // we can eat with given money, price  
+    // of chocolate and number of wrapprices 
+    // required to get a chocolate. 
+    static int countMaxChoco1(int money,  
+                        int price, int wrap) 
+    { 
+          
+        // Corner case 
+        if (money < price) 
+            return 0; 
+      
+        // First find number of chocolates  
+        // that can be purchased with the 
+        // given amount 
+        int choc = money / price; 
+      
+        // Now just add number of chocolates 
+        // with the chocolates gained by 
+        // wrapprices 
+        choc = choc + (choc - 1) / (wrap - 1); 
+        return choc; 
+    } 
+    
+    //https://www.geeksforgeeks.org/program-chocolate-wrapper-puzzle/
  // Driver code 
     public static void main (String[] args) 
     { 
@@ -52,6 +77,9 @@ public class Chocolate {
         // exchanged for one chocolate. 
         int wrap = 5 ;  
         System.out.println(  
-            countMaxChoco(money, price, wrap)); 
+            countMaxChoco(money, price, wrap));
+        
+        System.out.println(  
+                countMaxChoco1(money, price, wrap));
     } 
 }
