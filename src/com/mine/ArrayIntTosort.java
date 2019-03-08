@@ -1,6 +1,15 @@
 package com.mine;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class ArrayIntTosort {
 
@@ -142,8 +151,8 @@ public class ArrayIntTosort {
 		    
 	public static void main(String[] s) {
 		
-		byte[] a = {1,2,3,7};
-		System.out.println("*** " + ArrayIntTosort.convert(0));
+		Integer[] a = {1,2,3,7};
+		/*System.out.println("*** " + ArrayIntTosort.convert(0));
 	    System.out.println("*** " + ArrayIntTosort.convert(1));
 	    System.out.println("*** " + ArrayIntTosort.convert(16));
 	    System.out.println("*** " + ArrayIntTosort.convert(100));
@@ -161,7 +170,97 @@ public class ArrayIntTosort {
 	    System.out.println("*** " + ArrayIntTosort.convert(9001000));
 	    System.out.println("*** " + ArrayIntTosort.convert(123456789));
 	    System.out.println("*** " + ArrayIntTosort.convert(2147483647));
-	    System.out.println("*** " + ArrayIntTosort.convert(3000000010L));
+	    System.out.println("*** " + ArrayIntTosort.convert(3000000010L));*/
 		
+		Map<Integer,String> map = new HashMap<>();
+		//1. prepare a map with number and word
+	   for(Integer item: a) {
+		   map.put(item,converter.convertLessThanOneThousand(item));
+	   }
+	   
+	   //2. sort map by value
+	   LinkedHashMap<Integer, String> items = map.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
+               LinkedHashMap::new));
+	   
+	      
+	   //3 get keys
+	   Set<Integer> keys = items.keySet();
+	   
+	   //4. get array from set
+	   Integer[] array = keys.toArray(new Integer[keys.size()]);
+
+	   for(Integer arr: array) {
+		   System.out.println(arr);
+	   }
+	
+	   // Arrays.stream(a).map((x) -> converter.convertLessThanOneThousand(x)).sorted().forEach(System.out::println);
+	   //List<String> collect = Arrays.stream(a).map((x) -> converter.convertLessThanOneThousand(x)).sorted().collect(Collectors.toList());
+	   
+	   //Arrays.stream(a).map( (x) -> map.put(x,converter.convertLessThanOneThousand(x))).sorted();
+	   /*for (Map.Entry<Integer,String> entry : items.entrySet()) {
+			System.out.println("Item : " + entry.getKey() + " Count : " + entry.getValue());
+		}*/
+	 //  Integer[] array = Arrays.stream(a).map((x) -> converter.convertLessThanOneThousand(x)).sorted().toArray(size -> new Integer[size]);
+	   //System.out.println(array.toString());
+	   
+	}
+	
+	static class  converter {
+		  private final static String[] numNames = {
+				    "",
+				    " one",
+				    " two",
+				    " three",
+				    " four",
+				    " five",
+				    " six",
+				    " seven",
+				    " eight",
+				    " nine",
+				    " ten",
+				    " eleven",
+				    " twelve",
+				    " thirteen",
+				    " fourteen",
+				    " fifteen",
+				    " sixteen",
+				    " seventeen",
+				    " eighteen",
+				    " nineteen"
+				  };
+		  
+
+		  private static final String[] tensNames = {
+				    "",
+				    " ten",
+				    " twenty",
+				    " thirty",
+				    " forty",
+				    " fifty",
+				    " sixty",
+				    " seventy",
+				    " eighty",
+				    " ninety"
+				  };
+
+		  
+
+		  private static String convertLessThanOneThousand(Integer number) {
+			    String soFar;
+
+			    if (number % 100 < 20){
+			      soFar = numNames[number % 100];
+			      number /= 100;
+			    }
+			    else {
+			      soFar = numNames[number % 10];
+			      number /= 10;
+
+			      soFar = tensNames[number % 10] + soFar;
+			      number /= 10;
+			    }
+			    if (number == 0) return soFar;
+			    return numNames[number] + " hundred" + soFar;
+			  }
 	}
 }
